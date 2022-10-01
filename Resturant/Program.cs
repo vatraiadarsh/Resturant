@@ -1,11 +1,15 @@
+using Contracts;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<RepositoryContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 
 
 builder.Services.AddControllers();
