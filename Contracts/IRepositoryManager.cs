@@ -8,6 +8,7 @@ namespace Contracts
 {
     public interface IRepositoryManager : IDisposable
     {
+        public ICategoryRepository Category { get; }
         Task saveAsync();
     }
 }

@@ -11,11 +11,24 @@ namespace Repository
     public class RepositoryManager : IRepositoryManager
     {
 
-        private readonly RepositoryContext _context;
+        private RepositoryContext _context;
+        private ICategoryRepository _categoryRepository;
 
         public RepositoryManager(RepositoryContext context)
         {
             _context = context;
+        }
+
+        public ICategoryRepository Category
+        {
+            // repository initialization with db context
+            get
+            {
+                if (_categoryRepository == null)
+                    _categoryRepository = new CategoryRepository(_context);
+                return _categoryRepository;
+            }
+            
         }
 
         public void Dispose() => _context.Dispose();

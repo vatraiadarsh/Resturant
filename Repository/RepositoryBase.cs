@@ -19,10 +19,10 @@ namespace Repository
 
         public void Delete(T entity) => DbSet.Remove(entity);
 
-        public IEnumerable<T> FindAll(bool trackChanges) =>
+        public IQueryable<T> FindAll(bool trackChanges) =>
             !trackChanges ? DbSet.AsNoTracking() : DbSet;
 
-        public IEnumerable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges) =>
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges) =>
             DbSet.Where(expression).AsNoTracking() ?? DbSet.Where(expression);
 
         public void Update(T entity) => DbSet.Update(entity);
