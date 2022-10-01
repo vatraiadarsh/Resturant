@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Entities
 {
@@ -8,6 +9,9 @@ namespace Entities
         {
 
         }
+        public DbSet<FoodItem> FoodItems { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
 
     }
 }
