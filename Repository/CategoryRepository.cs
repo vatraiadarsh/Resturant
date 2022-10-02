@@ -2,7 +2,9 @@
 using Entities;
 using Entities.Models;
 using Entities.RequestFeatures;
+using Entities.RequestFeatures.Parameters;
 using Microsoft.EntityFrameworkCore;
+using Repository.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,10 @@ namespace Repository
 
         public async Task<PagedList<Category>> GetAllCategoriesAsync(CategoryParameters categoryParameters,bool trackChanges)
         {
-            var categories = await FindAll(trackChanges).OrderBy(c => c.Name).ToListAsync();
+            var categories = await FindAll(trackChanges)
+                .Search(categoryParameters.SearchTerm)
+                .OrderBy(c => c.Name)
+                .ToListAsync();
             return PagedList<Category>.ToPagedList(categories,categoryParameters.PageNumber,categoryParameters.PageSize);
         }
 

@@ -1,7 +1,7 @@
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
-using Entities.RequestFeatures;
+using Entities.RequestFeatures.Parameters;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;

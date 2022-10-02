@@ -1,5 +1,6 @@
 ﻿using Entities.Models;
 using Entities.RequestFeatures;
+using Entities.RequestFeatures.Parameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
