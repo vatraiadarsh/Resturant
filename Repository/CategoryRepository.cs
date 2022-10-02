@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Entities;
 using Entities.Models;
+using Entities.RequestFeatures;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,10 @@ namespace Repository
         public void DeleteCategory(Category category) => Delete(category);
 
 
-        public async Task<IEnumerable<Category>> GetAllCategoriesAsync(bool trackChanges)
+        public async Task<PagedList<Category>> GetAllCategoriesAsync(CategoryParameters categoryParameters,bool trackChanges)
         {
-            return await FindAll(trackChanges).OrderBy(c => c.Name).ToListAsync();
+            var categories = await FindAll(trackChanges).OrderBy(c => c.Name).ToListAsync();
+            return PagedList<Category>.ToPagedList(categories,categoryParameters.PageNumber,categoryParameters.PageSize);
         }
 
         public async Task<Category> GetCategoryByIdAsync(Guid categoryId, bool trackChanges)

@@ -1,9 +1,10 @@
 using Contracts;
 using Entities.DataTransferObjects;
 using Entities.Models;
+using Entities.RequestFeatures;
 using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Resturant.ModelBinders;
 
 namespace Resturant.Controllers
@@ -24,9 +25,10 @@ namespace Resturant.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetCategories()
+        public async Task<IActionResult> GetCategories([FromQuery] CategoryParameters categoryParameters)
         {
-            var categories = await _repository.Category.GetAllCategoriesAsync(trackChanges: false);
+            var categories = await _repository.Category.GetAllCategoriesAsync(categoryParameters,trackChanges: false);
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(categories.MetaData));         
             var categoryDto = categories.Select(c => new CategoryDto
             {
                 Id = c.Id,
