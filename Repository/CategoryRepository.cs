@@ -36,5 +36,8 @@ namespace Repository
         {
             return await FindByCondition(x => ids.Contains(x.Id), trackChanges).ToListAsync();
         }
+
+        public void UpdateCategory(Category category) => Update(category);
+        
     }
 }

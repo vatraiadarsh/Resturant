@@ -4,15 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.DataTransferObjects
 {
-    public class Category
+    public class CategoryDto
     {
         public Guid Id { get; set; }
-        public string Name { get; set; } 
-        public string NameInNepali { get; set; }
+        public string Name { get; set; }
+        public string NepaliName { get; set; }
         public string Description { get; set; }
-        public ICollection<FoodItem> FoodItems { get; set; }
-
     }
 }

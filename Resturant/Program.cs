@@ -1,7 +1,14 @@
 using Contracts;
 using Entities;
+using Entities.DataTransferObjects;
+using Entities.ErrorModel;
+using Entities.Validators;
+using FluentValidation;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +18,15 @@ builder.Services.AddDbContext<RepositoryContext>(options =>
 
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
 
 builder.Services.AddControllers();
+    
+builder.Services.AddTransient<IValidator<CategoryDto>, CategoryValidator>();
+
 
 var app = builder.Build();
 
@@ -20,6 +34,33 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseExceptionHandler(appError =>
+{
+    appError.Run(async context =>
+    {
+        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        context.Response.ContentType = "application/json";
+        var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+        if (contextFeature != null)
+        {
+            // await context.Response.WriteAsync(new ErrorDetails()
+            // {
+            //     StatusCode = context.Response.StatusCode,
+            //     Message = "Internal Server Error."
+            // }.ToString()); 
+            
+            // if environment is development
+            await context.Response.WriteAsync(new ErrorDetails()
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = contextFeature.Error.Message
+            }.ToString());
+
+        }
+
+    });
+
+});
 
 app.MapControllers();
 

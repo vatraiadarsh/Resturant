@@ -14,6 +14,7 @@ namespace Contracts
         void CreateCategory(Category category);
         Task<IEnumerable<Category>> GetCategoryCollectionAsync(IEnumerable<Guid> ids, bool trackChanges);
         void DeleteCategory(Category category);
+        void UpdateCategory(Category category);
 
     }
 }
