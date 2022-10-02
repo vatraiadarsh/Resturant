@@ -29,7 +29,7 @@ namespace Repository
         {
             var categories = await FindAll(trackChanges)
                 .Search(categoryParameters.SearchTerm)
-                .OrderBy(c => c.Name)
+                .Sort(categoryParameters.OrderBy)
                 .ToListAsync();
             return PagedList<Category>.ToPagedList(categories,categoryParameters.PageNumber,categoryParameters.PageSize);
         }
