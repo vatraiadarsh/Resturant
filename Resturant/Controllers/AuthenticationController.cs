@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Entities.Roles;
 
 namespace Api.Controllers
 {
@@ -73,9 +74,12 @@ namespace Api.Controllers
 
             User user = new User()
             {
+                FirstName = register.FirstName,
+                LastName = register.LastName,
                 Email = register.Email,
+                UserName=register.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = register.Email
+               
             };
 
             var result = await _userManager.CreateAsync(user, register.Password);
@@ -84,8 +88,13 @@ namespace Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new ResponseDetails
                 {
                     StatusCode = StatusCodes.Status500InternalServerError,
-                    Message = "User creation failes! please check user details and try again."
+                    Message = "User creation failed! please check user details and try again."
                 });
+            }
+
+             if (await _roleManager.RoleExistsAsync(UserRoles.User))
+            {
+                await _userManager.AddToRoleAsync(user, UserRoles.User);
             }
 
             return Ok(new ResponseDetails
@@ -95,13 +104,66 @@ namespace Api.Controllers
             });
         }
 
+        [HttpPost]
+        [Route("register-admin")]
+        public async Task<IActionResult> RegisterAdmin([FromBody] Register register)
+        {
+            var userExists = await _userManager.FindByEmailAsync(register.Email);
+            if (userExists != null)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseDetails
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    Message = "User already exists!"
+                });
+            }
 
+            User user = new User()
+            {
+                FirstName = register.FirstName,
+                LastName = register.LastName,
+                Email = register.Email,
+                UserName = register.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+            };
 
+            var result = await _userManager.CreateAsync(user, register.Password);
+            if (!result.Succeeded)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseDetails
+                {
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    Message = "User creation failed! please check user details and try again."
+                });
+            }
 
+            if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+            }
 
+            if (!await _roleManager.RoleExistsAsync(UserRoles.Staff))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Staff));
+            }
 
+            if (!await _roleManager.RoleExistsAsync(UserRoles.User))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+            }
 
+            if (await _roleManager.RoleExistsAsync(UserRoles.Admin))
+            {
+                await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+            }
 
+            return Ok(new ResponseDetails
+            {
+                StatusCode = StatusCodes.Status200OK,
+                Message = "User created successfully!"
+            });
+        }
+        
 
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)

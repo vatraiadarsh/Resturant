@@ -21,6 +21,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<RepositoryContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<RepositoryContext>()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
@@ -40,9 +44,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddTransient<IValidator<CategoryDto>, CategoryValidator>();
 
 
-builder.Services.AddIdentity<User, IdentityRole>()
-    .AddEntityFrameworkStores<RepositoryContext>()
-    .AddDefaultTokenProviders();
+
 
 
 builder.Services.AddAuthentication(options =>

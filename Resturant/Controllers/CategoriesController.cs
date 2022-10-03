@@ -6,6 +6,8 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Api.ModelBinders;
+using Microsoft.AspNetCore.Authorization;
+using Entities.Roles;
 
 namespace Resturant.Controllers
 {
@@ -76,6 +78,7 @@ namespace Resturant.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> CreateCategory([FromBody] CategoryDto category)
         {
             var validationResult = await _validator.ValidateAsync(category);
