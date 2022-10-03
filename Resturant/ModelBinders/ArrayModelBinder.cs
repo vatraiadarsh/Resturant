@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Resturant.ModelBinders
+namespace Api.ModelBinders
 {
     public class ArrayModelBinder : IModelBinder
     {

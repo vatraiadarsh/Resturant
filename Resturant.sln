@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resturant", "Resturant\Resturant.csproj", "{A72A4CFE-2591-4999-859D-D5185A3A6EBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Resturant\Api.csproj", "{A72A4CFE-2591-4999-859D-D5185A3A6EBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{4040C23B-0939-4570-A1E3-DB610BDDF908}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{4040C23B-0939-4570-A1E3-DB610BDDF908}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{D2BCE452-732B-41AC-A627-73AB72CEC140}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{D2BCE452-732B-41AC-A627-73AB72CEC140}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{47958B88-FE91-47F6-8799-355CAB4A4BCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{47958B88-FE91-47F6-8799-355CAB4A4BCE}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "client", "Client\client.esproj", "{9415B748-54FB-48E9-AA81-B9A7F1FBDDB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,12 @@ Global
 		{47958B88-FE91-47F6-8799-355CAB4A4BCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47958B88-FE91-47F6-8799-355CAB4A4BCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47958B88-FE91-47F6-8799-355CAB4A4BCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9415B748-54FB-48E9-AA81-B9A7F1FBDDB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9415B748-54FB-48E9-AA81-B9A7F1FBDDB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9415B748-54FB-48E9-AA81-B9A7F1FBDDB3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9415B748-54FB-48E9-AA81-B9A7F1FBDDB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9415B748-54FB-48E9-AA81-B9A7F1FBDDB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9415B748-54FB-48E9-AA81-B9A7F1FBDDB3}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

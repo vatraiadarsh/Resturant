@@ -24,12 +24,20 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 });
 
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+});
     
 builder.Services.AddTransient<IValidator<CategoryDto>, CategoryValidator>();
 
 
 var app = builder.Build();
 
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 

@@ -5,7 +5,7 @@ using Entities.RequestFeatures.Parameters;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Resturant.ModelBinders;
+using Api.ModelBinders;
 
 namespace Resturant.Controllers
 {
