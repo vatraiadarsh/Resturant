@@ -5,7 +5,7 @@
         </div>
 
         <div v-if="categories" class="content">
-            <table>
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Name</th>
