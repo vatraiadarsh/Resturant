@@ -5,9 +5,9 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Entities.ErrorModel
+namespace Entities.ResponseModel
 {
-    public class ErrorDetails
+    public class ResponseDetails
     {
         public int StatusCode { get; set; }
         public string Message { get; set; }
